@@ -1,0 +1,13 @@
+{
+    "name": "wsdslm/php-utils",
+    "authors": [
+        {
+            "name": "wsdslm",
+            "email": "wsdslm@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    }
+}
