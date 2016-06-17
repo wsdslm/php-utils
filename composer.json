@@ -6,8 +6,15 @@
             "email": "wsdslm@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "monolog/monolog": "^1.19"
+    },
     "require-dev": {
         "phpunit/phpunit": "4.8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ws\\utils\\": "src"
+        }
     }
 }
