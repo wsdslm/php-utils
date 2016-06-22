@@ -1,6 +1,4 @@
 <?php
-require '../vendor/autoload.php';
-
 use ws\utils\helpers\IDM;
 
 class IDMTest extends PHPUnit_Framework_TestCase
