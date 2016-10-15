@@ -3,6 +3,7 @@ namespace ws\utils\pickers;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use ws\utils\helpers\IDM;
 
 class LeopardRawsPicker
 {
@@ -42,8 +43,7 @@ class LeopardRawsPicker
             foreach ($rss->items as $item) {
                 $file_item = $download_path . '/' . $item->title . '.torrent';
                 if (!file_exists($file_item)) {
-                    $data = file_get_contents($item->link);
-                    file_put_contents($file_item, $data);
+                    IDM::add_file($item->link, $item->title . '.torrent', $download_path);
                     $message = sprintf("[%s] new torrent: %s.torrent\n", date('Y-m-d H:i:d'), $item->title);
                     $this->log->log(Logger::INFO, $message);
                 }
