@@ -11,4 +11,13 @@ class CommonHelper
             return $params[$name];
         return '';
     }
+
+    public static function handlePath($path)
+    {
+        $path = trim(str_replace(['/', '\\', '*', '>', '<', '|', '?', '"',], ' ', $path));
+        if (stripos(PHP_OS, 'win') !== false) {
+            $path = iconv('UTF-8', 'GBK//IGNORE', $path);
+        }
+        return $path;
+    }
 }

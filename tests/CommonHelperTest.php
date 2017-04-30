@@ -10,4 +10,11 @@ class CommonHelperTest extends PHPUnit_Framework_TestCase
         self::assertEmpty(CommonHelper::getParamValue($url, 'brand_id'));
         self::assertEquals(10023, CommonHelper::getParamValue($url, 'search_brand_id'));
     }
+
+    public function testHandlePath()
+    {
+        $path = 'a/\\|b"?*<>';
+        $path = CommonHelper::handlePath($path);
+        self::assertEquals('a   b', $path);
+    }
 }

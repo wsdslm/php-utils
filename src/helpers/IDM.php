@@ -13,10 +13,9 @@ class IDM
     {
         $cmd = sprintf('"%s" /a /d %s', self::$bin_path, $url);
         if ($filename)
-            if ($save_path)
-                $cmd = sprintf('"%s" /a /p "%s" /f "%s" /d %s', self::$bin_path, $save_path, $filename, $url);
-            else
-                $cmd = sprintf('"%s" /a /f "%s" /d %s', self::$bin_path, $filename, $url);
+            $cmd .= sprintf(' /f "%s"', $filename);
+        if ($save_path)
+            $cmd .= sprintf(' /p "%s"', $save_path);
         exec($cmd);
     }
 }
