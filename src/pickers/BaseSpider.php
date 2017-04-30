@@ -1,4 +1,5 @@
 <?php
+
 namespace ws\utils\pickers;
 
 use GuzzleHttp\Client;
@@ -18,6 +19,16 @@ class BaseSpider
     {
         $this->url = $url;
         $this->client = $client;
+    }
+
+    public function getItem()
+    {
+        return null;
+    }
+
+    public function getItems()
+    {
+        return [];
     }
 
     public function getClient()
@@ -133,15 +144,23 @@ class BaseSpider
 
     /**
      * @param \DOMElement $node
+     * @param bool $img
      * @return array
      */
-    public function getImageLink($node)
+    public function getResources($node, $img = true)
     {
-        $links = [];
-        foreach ($this->getXPath()->query('a[img]', $node) as $n) {
+        $resources = [];
+        if (!$node)
+            return $resources;
+        foreach ($this->getXPath()->query('.//a[img]', $node) as $n) {
             /* @var \DOMElement $n */
-            $links[] = $this->getAbsUrl($n->getAttribute('href'));
+            $resources[] = $this->getAbsUrl($n->getAttribute('href'));
         }
-        return $links;
+        if ($img)
+            foreach ($this->getXPath()->query('.//img', $node) as $n) {
+                /* @var \DOMElement $n */
+                $resources[] = $this->getAbsUrl($n->getAttribute('src'));
+            }
+        return array_unique($resources);
     }
 }
