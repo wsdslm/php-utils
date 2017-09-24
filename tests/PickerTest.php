@@ -1,18 +1,33 @@
 <?php
+
 use ws\utils\pickers\Amiami;
 use ws\utils\pickers\LeopardRawsRss;
 use ws\utils\pickers\Moeyo;
+use ws\utils\pickers\Nhentai;
 use ws\utils\pickers\ToyNavi;
 use ws\utils\pickers\YandeReApi;
 
-class LeopardRawsTest extends PHPUnit_Framework_TestCase
+class PickerTest extends PHPUnit_Framework_TestCase
 {
     public function testLeopardRaws()
     {
         $url = 'http://leopard-raws.org/rss.php?search=Bishoujo+Yuugi+Unit+Crane+Game';
         $rss = new LeopardRawsRss($url);
-        $this->assertEquals('Leopard-Raws - Bishoujo Yuugi Unit Crane Game', $rss->title);
-        $this->assertGreaterThan(1, count($rss->items));
+        self::assertEquals('Leopard-Raws - Bishoujo Yuugi Unit Crane Game', $rss->title);
+        self::assertGreaterThan(1, count($rss->items));
+    }
+
+    public function testNhentai()
+    {
+        $url = 'https://nhentai.net/g/120350/';
+        $client = new \GuzzleHttp\Client(['defaults' => [
+            'verify' => false
+        ]]);
+        $nh = new Nhentai($url, $client);
+        $item = $nh->getItem();
+        self::assertEquals('(C86) [ASGO (暫時)] 棟方愛海のドリームかな子フェスティバル (アイドルマスター シンデレラガールズ)', $item->title);
+        self::assertCount(20, $item->resources);
+        self::assertEquals('https://i.nhentai.net/galleries/756195/1.jpg', $item->resources[0]);
     }
 
     public function testAmiami()
@@ -51,7 +66,7 @@ class LeopardRawsTest extends PHPUnit_Framework_TestCase
         $client = new \GuzzleHttp\Client(['defaults' => [
             'verify' => false
         ]]);
-        $yr = new YandeReApi($tags, null, null,$client);
+        $yr = new YandeReApi($tags, null, null, $client);
         $items = $yr->getItems();
         self::assertNotEmpty($items);
     }

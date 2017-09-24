@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 use ws\utils\helpers\CommonHelper;
 use ws\utils\helpers\IDM;
 use ws\utils\pickers\Amiami;
+use ws\utils\pickers\Nhentai;
 use ws\utils\pickers\ToyNavi;
 
 $conf = require(__DIR__ . '/pick.conf.php');
@@ -25,6 +26,12 @@ while (true) {
     } elseif (stripos($input, 'toy-navi.net') !== false) {
         $item = (new ToyNavi($input))->getItem();
         $download_path = $conf['toy_navi_path'] . '/' . CommonHelper::handlePath($item->title);
+    } elseif (stripos($input, 'nhentai.net') !== false) {
+        $client = new \GuzzleHttp\Client(['defaults' => [
+            'verify' => false
+        ]]);
+        $item = (new Nhentai($input, $client))->getItem();
+        $download_path = $conf['nhentai_path'] . '/' . CommonHelper::handlePath($item->title);
     } else {
         echo "invalid url!\n";
         break;
