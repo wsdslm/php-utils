@@ -1,7 +1,6 @@
 <?php
 
 use ws\utils\pickers\Amiami;
-use ws\utils\pickers\LeopardRawsRss;
 use ws\utils\pickers\Moeyo;
 use ws\utils\pickers\Nhentai;
 use ws\utils\pickers\ToyNavi;
@@ -9,14 +8,6 @@ use ws\utils\pickers\YandeReApi;
 
 class PickerTest extends PHPUnit_Framework_TestCase
 {
-    public function testLeopardRaws()
-    {
-        $url = 'http://leopard-raws.org/rss.php?search=Bishoujo+Yuugi+Unit+Crane+Game';
-        $rss = new LeopardRawsRss($url);
-        self::assertEquals('Leopard-Raws - Bishoujo Yuugi Unit Crane Game', $rss->title);
-        self::assertGreaterThan(1, count($rss->items));
-    }
-
     public function testNhentai()
     {
         $url = 'https://nhentai.net/g/120350/';

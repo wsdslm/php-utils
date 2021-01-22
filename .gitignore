@@ -1,5 +1,5 @@
 .idea/
 vendor/
 *.log
-leopard-raws.conf.php
 pick.conf.php
+task.conf.php
