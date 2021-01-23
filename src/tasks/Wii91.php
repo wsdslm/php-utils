@@ -14,6 +14,10 @@ class Wii91 extends DzX3Base
 
     public function run()
     {
+        for ($i = 1000; $i < 1030; $i++) {
+            $this->client->get('/home.php?mod=space&uid=' . $i);
+            sleep(1);
+        }
         $xpath = new BaseSpider($this->sign_form_url, $this->client);
         $formhash = $xpath->getNode('//form[@id="signform"]/input[1]')->getAttribute('value');
         $data = [
